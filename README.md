@@ -1,19 +1,7 @@
-¿Qué problema resuelve el ViewModel?:
+En este taller se implementó un módulo completo de gestión de tareas dentro de la aplicación. Se desarrolló la navegación entre pantallas utilizando el Navigation Component, permitiendo pasar de la lista de tareas a la pantalla de creación de una nueva tarea de forma fluida. Además, se creó la funcionalidad para registrar tareas con un título, una descripción y la opción de activar un recordatorio.
 
-Es cuando se rota el teléfono, la Activity se destruye y pierdes todos los datos. El ViewModel los guarda y los mantiene vivos aunque la pantalla rote.
+Las tareas se visualizan en una lista mediante el uso de RecyclerView, mientras que la gestión de los datos se realiza a través de un ViewModel, lo que permite mantener la información durante el ciclo de vida de la aplicación. También se integró un BroadcastReceiver para manejar eventos en segundo plano.
 
-¿Por qué LiveData es "lifecycle-aware" y qué beneficio trae?:
+Para los recordatorios, se utilizó la opción de notificación local. Cuando el usuario activa el recordatorio al momento de crear una tarea, se programa una alarma utilizando AlarmManager. Una vez se cumple el tiempo establecido, el sistema ejecuta el BroadcastReceiver, el cual se encarga de mostrar una notificación en el dispositivo con la información de la tarea creada.
 
-Es porque sabe en qué estado está la app, es decir si esta activa, pausada o destruida y solo notifica cambios cuando la pantalla está visible. Así evita problemas por actualizar una pantalla que ya no existe.
-
-Explica con tus propias palabras el flujo de datos en MVVM:
-
-Es la Vista que le pide datos al ViewModel, el ViewModel se los pide al Repository y el Repository los busca y los devuelve. El ViewModel los publica en LiveData y la Vista se actualiza automáticamente.
-
-¿Qué ventaja tiene usar Fragments vs múltiples Activities?:
-
-Los Fragments son más ligeros y pueden compartir el mismo ViewModel dentro de una Activity. Con múltiples Activities tendrías que pasar datos entre ellas con Intents, lo cual es más complicado y lento.
-
-¿Cómo ayuda el Repository Pattern a la arquitectura?:
-
-El ViewModel no sabe de dónde vienen los datos. El Repository se encarga de eso. Así si se cambia la fuente de datos, solo se seleccionael Repository y no el resto de la app.
+Es importante tener en cuenta que el funcionamiento de las notificaciones puede depender de los permisos del sistema, especialmente en versiones recientes de Android, así como de posibles restricciones de batería del dispositivo.
